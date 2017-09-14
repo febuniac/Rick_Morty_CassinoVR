@@ -61,6 +61,7 @@ public class ControllerGrabObject : MonoBehaviour
         var joint = AddFixedJoint();
         joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
     }
+		
 
     private FixedJoint AddFixedJoint()
     { // cria uma junção para o objeto e controle

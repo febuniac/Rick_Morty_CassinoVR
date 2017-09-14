@@ -10,7 +10,7 @@ public class CardSpawn : MonoBehaviour {
 	public GameObject[] spawned = new GameObject[2];
     public Transform spawnPos1;
     public Transform spawnPos2;
-    private SteamVR_TrackedObject trackedObj;  // referência para o controle
+    public SteamVR_TrackedObject trackedObj;  // referência para o controle
 
     int randomInt;
 	int cardPlayerNumber;
