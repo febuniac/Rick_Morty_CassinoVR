@@ -7,14 +7,20 @@ using UnityEngine.UI;
 public class CardSpawn : MonoBehaviour {
     public GameObject[] spawnees;
 	public Text winPhrase;
+	public Text money;
 	public GameObject[] spawned = new GameObject[2];
     public Transform spawnPos1;
     public Transform spawnPos2;
-    public SteamVR_TrackedObject trackedObj;  // referência para o controle
+    private SteamVR_TrackedObject trackedObj;  // referência para o controle
+
+	private int playerMoney = 100;
+
 
     int randomInt;
 	int cardPlayerNumber;
 	int cardDealerNumber;
+
+	bool controllerPressed = false;
 
 
     private SteamVR_Controller.Device Controller
@@ -25,18 +31,21 @@ public class CardSpawn : MonoBehaviour {
     void Start()
     {                         // recupera referência para o controle
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+		//money = GameObject.Find ("MoneyText").;
     }
 
     void Update()
     {
-		if (Controller.GetHairTriggerDown ()) {
+		if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
+			controllerPressed = true;
 			for (int i = 0; i < spawned.Length; i++) {
 				if (spawned [i]) {
-					print(spawned[i].transform.name);
 					Destroy (spawned [i]);
 				}
 			}
 			SpawnCards();
+
+
 		}
     }
 
@@ -53,10 +62,14 @@ public class CardSpawn : MonoBehaviour {
 
 		if (cardPlayer.GetComponent<CardValue>().cardValue > cardDealer.GetComponent<CardValue>().cardValue) {
 			winPhrase.text = "You Win";
-			print ("You Lose");
+			playerMoney += 10;
+			money.text = "$" + playerMoney.ToString ();
+			print (money.text);
 		} else {
+			print ("Perde");
 			winPhrase.text = "You Lose";
-			print ("You Win");
+			playerMoney -= 10;
+			money.text = "$" + playerMoney.ToString ();
 		}
     }
 }

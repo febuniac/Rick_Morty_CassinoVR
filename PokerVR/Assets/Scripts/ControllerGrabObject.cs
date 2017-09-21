@@ -11,6 +11,10 @@ public class ControllerGrabObject : MonoBehaviour
 
     private GameObject objectInHand; // referência para objeto que vai ser manuseado
 
+
+	private GameObject cardInHand;
+	private GameObject CardHolder;
+
     private SteamVR_Controller.Device Controller
     {  // Properties para o controle
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
@@ -32,7 +36,7 @@ public class ControllerGrabObject : MonoBehaviour
         collidingObject = col.gameObject;  // salva como objeto a mover
 
     }
-
+		
     public void OnTriggerEnter(Collider other)
     { // invocado se houver colisão
         SetCollidingObject(other);

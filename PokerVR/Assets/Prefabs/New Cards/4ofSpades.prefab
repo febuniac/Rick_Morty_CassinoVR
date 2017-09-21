@@ -173,6 +173,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4716316974539580}
+  - component: {fileID: 114359057830954112}
   m_Layer: 0
   m_Name: 4ofSpades
   m_TagString: Untagged
@@ -740,6 +741,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1603950854269910}
   m_Mesh: {fileID: 4300254, guid: 34412808ccc559543b135015a395bc5e, type: 3}
+--- !u!114 &114359057830954112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973348410793370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f9c048fc82c244ea0fe39c3ac973e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardValue: 3
 --- !u!114 &114714507977876326
 MonoBehaviour:
   m_ObjectHideFlags: 1

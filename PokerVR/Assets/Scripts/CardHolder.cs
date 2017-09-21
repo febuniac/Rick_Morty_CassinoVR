@@ -5,21 +5,31 @@ using UnityEngine;
 
 public class CardHolder : MonoBehaviour
 {
-	public SteamVR_TrackedObject trackedObj;  // referência para o controle
+	private SteamVR_TrackedObject trackedObjLeft;  // referência para o controle
+	private SteamVR_TrackedObject trackedObjRight;  // referência para o controle
 
 	private GameObject collidingObject; // referência para objeto que é intersectado
 
 	private GameObject cardInHand; // referência para objeto que vai ser manuseado
 
+	public GameObject leftController;
+	public GameObject rightController;
 
-	private SteamVR_Controller.Device Controller
+	private SteamVR_Controller.Device ControllerLeft
 	{  // Properties para o controle
-		get { return SteamVR_Controller.Input((int)trackedObj.index); }
+		get { return SteamVR_Controller.Input((int)trackedObjLeft.index); }
+	}
+
+	private SteamVR_Controller.Device ControllerRight
+	{  // Properties para o controle
+		get { return SteamVR_Controller.Input((int)trackedObjRight.index); }
 	}
 
 	void Awake()
 	{                         // recupera referência para o controle
-		trackedObj = GetComponent<SteamVR_TrackedObject>();
+		trackedObjLeft = leftController.GetComponent<SteamVR_TrackedObject>();
+		trackedObjRight = rightController.GetComponent<SteamVR_TrackedObject>();
+
 	}
 
 	private void SetCollidingObject(Collision col)
@@ -47,7 +57,7 @@ public class CardHolder : MonoBehaviour
 	public void OnCollisionEnter(Collision other)
 	{ // invocado se houver colisão
 		if (other.gameObject.GetComponent<CardValue>()) {
-			print ("Achou a carta");
+			//print ("Achou a carta");
 			SetCollidingObject(other);
 			
 		}
@@ -56,7 +66,7 @@ public class CardHolder : MonoBehaviour
 	public void OnCollisionStay(Collision other)
 	{ // invocado se houver colisão
 		if (other.gameObject.GetComponent<CardValue> ()) {
-			print ("Achou a carta");
+			//print ("Achou a carta");
 			SetCollidingObject(other);
 
 		}
@@ -68,6 +78,7 @@ public class CardHolder : MonoBehaviour
 		{
 			return;
 		}
+		print ("Saiu da carta");
 		collidingObject = null;
 	}
 
@@ -88,12 +99,11 @@ public class CardHolder : MonoBehaviour
 
 		if (GetComponent<FixedJoint>())
 		{
-
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
-			cardInHand.GetComponent<Rigidbody>().velocity = Controller.velocity;
-			cardInHand.GetComponent<Rigidbody>().angularVelocity = Controller.angularVelocity;
+			cardInHand.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity;
+			cardInHand.GetComponent<Rigidbody>().angularVelocity = this.GetComponent<Rigidbody>().angularVelocity;
 		}
 
 		cardInHand = null;
@@ -101,13 +111,16 @@ public class CardHolder : MonoBehaviour
 
 	void Update()
 	{
-		if (collidingObject)
-		{
-			HoldCard();
+		if (ControllerLeft.GetHairTriggerUp () || ControllerRight.GetHairTriggerUp ()) {
+			if (collidingObject)
+			{
+				HoldCard();
+			}
 		}
 
 
-		if (Controller.GetHairTriggerUp())	
+
+		if (ControllerLeft.GetHairTriggerDown() || ControllerRight.GetHairTriggerDown())	
 		{ // caso botão inferior solto
 			if (cardInHand)
 			{
