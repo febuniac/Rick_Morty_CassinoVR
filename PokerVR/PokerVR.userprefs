@@ -2,11 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CardSpawn.cs">
     <Files>
-      <File FileName="Assets\Scripts\CardSpawn.cs" Line="65" Column="21" />
       <File FileName="Assets\Scripts\LaserPointer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CardValue.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CardHolder.cs" Line="20" Column="58" />
-      <File FileName="Assets\Scripts\ControllerGrabObject.cs" Line="104" Column="43" NotebookId="1" />
+      <File FileName="Assets\Scripts\CardHolder.cs" Line="14" Column="2" />
+      <File FileName="Assets\SteamVR\InteractionSystem\Core\Scripts\Hand.cs" Line="801" Column="49" />
+      <File FileName="Assets\Scripts\CardSpawn.cs" Line="50" Column="7" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

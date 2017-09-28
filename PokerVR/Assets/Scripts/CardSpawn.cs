@@ -8,35 +8,52 @@ public class CardSpawn : MonoBehaviour {
     public GameObject[] spawnees;
 	public Text winPhrase;
 	public Text money;
-	public GameObject[] spawned = new GameObject[2];
-    public Transform spawnPos1;
-    public Transform spawnPos2;
-    private SteamVR_TrackedObject trackedObj;  // referência para o controle
-
+	public GameObject[] spawned;
+	public Transform[] spawnPos;
+	public SteamVR_Controller.Device Controller;
+	public GameObject controller;
 	private int playerMoney = 100;
+	private SteamVR_TrackedObject trackedObj;  // referência para o controle
 
 
     int randomInt;
-	int cardPlayerNumber;
-	int cardDealerNumber;
+	int[] cardPlayerNumber;
+	int[] cardDealerNumber;
+	GameObject[] cardPlayer;
+	GameObject[] cardDealer;
 
 	bool controllerPressed = false;
 
 
-    private SteamVR_Controller.Device Controller
+    private SteamVR_Controller.Device Controller1
     {  // Properties para o controle
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
 
+	void Awake(){
+		spawned = new GameObject[spawnees.Length];
+		cardPlayer = new GameObject[2];
+		cardDealer = new GameObject[2];
+
+	}
+
     void Start()
-    {                         // recupera referência para o controle
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
+    {  
+		// recupera referência para o controle
+		//trackedObj = controller.GetComponent<SteamVR_TrackedObject>();
+		SpawnCards();
 		//money = GameObject.Find ("MoneyText").;
     }
 
     void Update()
     {
+		Scri X = this.GetComponent<Valve.VR.InteractionSystem.Hand>();
+
+		Debug.Log (X.GetStandardInteractionButtonDown());
+	
+		/*
 		if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
+			print ("PRESSDOWN");
 			controllerPressed = true;
 			for (int i = 0; i < spawned.Length; i++) {
 				if (spawned [i]) {
@@ -47,29 +64,27 @@ public class CardSpawn : MonoBehaviour {
 
 
 		}
-    }
+*/
+}
 
 
     void SpawnCards()
     {
         randomInt = Random.Range(0, spawnees.Length);
-		GameObject cardDealer = Instantiate(spawnees[randomInt], spawnPos1.position, spawnees[randomInt].transform.rotation) as GameObject;
-		spawned [0] = cardDealer;
+		cardDealer[0] = Instantiate(spawnees[randomInt], spawnPos[0].position, spawnees[randomInt].transform.rotation) as GameObject;
+		spawned [0] = cardDealer[0];
+
+		randomInt = Random.Range(0, spawnees.Length);
+		cardDealer[1] = Instantiate(spawnees[randomInt], spawnPos[1].position, spawnees[randomInt].transform.rotation) as GameObject;
+		spawned [1] = cardDealer[1];
 
         randomInt = Random.Range(0, spawnees.Length);
-		GameObject cardPlayer = Instantiate(spawnees[randomInt], spawnPos2.position, spawnees[randomInt].transform.rotation) as GameObject;
-		spawned [1] = cardPlayer;
+		cardPlayer[0] = Instantiate(spawnees[randomInt], spawnPos[2].position, spawnees[randomInt].transform.rotation) as GameObject;
+		spawned [2] = cardPlayer[0];
 
-		if (cardPlayer.GetComponent<CardValue>().cardValue > cardDealer.GetComponent<CardValue>().cardValue) {
-			winPhrase.text = "You Win";
-			playerMoney += 10;
-			money.text = "$" + playerMoney.ToString ();
-			print (money.text);
-		} else {
-			print ("Perde");
-			winPhrase.text = "You Lose";
-			playerMoney -= 10;
-			money.text = "$" + playerMoney.ToString ();
-		}
+		randomInt = Random.Range(0, spawnees.Length);
+		cardPlayer[1] = Instantiate(spawnees[randomInt], spawnPos[3].position, spawnees[randomInt].transform.rotation) as GameObject;
+		spawned [3] = cardPlayer [1];
+
     }
 }
