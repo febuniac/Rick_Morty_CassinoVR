@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 114786534129851302}
   m_Layer: 0
   m_Name: 10ofHearts
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

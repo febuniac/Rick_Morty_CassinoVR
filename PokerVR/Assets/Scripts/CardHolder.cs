@@ -1,38 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HTC.UnityPlugin.Vive;
 
 
 public class CardHolder : MonoBehaviour
 {
-	private SteamVR_TrackedObject trackedObjLeft;  // referência para o controle
-	private SteamVR_TrackedObject trackedObjRight;  // referência para o controle
 
 	private GameObject collidingObject; // referência para objeto que é intersectado
 
 	private GameObject cardInHand; // referência para objeto que vai ser manuseado
 
-	public GameObject leftController;
-	public GameObject rightController;
 
-	private SteamVR_Controller.Device ControllerLeft
-	{  // Properties para o controle
-		get { return SteamVR_Controller.Input((int)trackedObjLeft.index); }
-	}
 
-	private SteamVR_Controller.Device ControllerRight
-	{  // Properties para o controle
-		get { return SteamVR_Controller.Input((int)trackedObjRight.index); }
-	}
 
-	void Awake()
-	{                         // recupera referência para o controle
-		trackedObjLeft = leftController.GetComponent<SteamVR_TrackedObject>();
-		trackedObjRight = rightController.GetComponent<SteamVR_TrackedObject>();
 
-	}
-
-	private void SetCollidingObject(Collision col)
+	private void SetCollidingObject(Collider col)
 	{  // guarda o objeto que está colidindo
 
 		if (collidingObject || !col.gameObject.GetComponent<Rigidbody>())
@@ -54,31 +37,30 @@ public class CardHolder : MonoBehaviour
 		return fx;
 	}
 
-	public void OnCollisionEnter(Collision other)
+	public void OnTriggerEnter(Collider other)
 	{ // invocado se houver colisão
-		if (other.gameObject.GetComponent<CardValue>()) {
-			//print ("Achou a carta");
+		if (other.gameObject.tag == "Card") {
+			print ("Achou a carta");
 			SetCollidingObject(other);
 			
 		}
 	}
 
-	public void OnCollisionStay(Collision other)
+	public void OnTriggerStay(Collider other)
 	{ // invocado se houver colisão
-		if (other.gameObject.GetComponent<CardValue> ()) {
-			//print ("Achou a carta");
+		if (other.gameObject.tag == "Card") {
+			print ("Achou a carta");
 			SetCollidingObject(other);
 
 		}
 	}
 
-	public void OnCollisionExit(Collision other)
+	public void OnTriggerExit(Collider other)
 	{ // invocado quando a colisão terminar
 		if (!collidingObject)
 		{
 			return;
 		}
-		print ("Saiu da carta");
 		collidingObject = null;
 	}
 
@@ -111,21 +93,30 @@ public class CardHolder : MonoBehaviour
 
 	void Update()
 	{
-		if (ControllerLeft.GetHairTriggerUp () || ControllerRight.GetHairTriggerUp ()) {
+		if (ViveInput.GetPressDown (HandRole.RightHand, ControllerButton.Trigger) || ViveInput.GetPressDown (HandRole.LeftHand, ControllerButton.Trigger)) {
+			//print ("PRESSDOWN");
+
 			if (collidingObject)
 			{
+				print ("COLLIDERRR");
 				HoldCard();
 			}
 		}
 
 
 
-		if (ControllerLeft.GetHairTriggerDown() || ControllerRight.GetHairTriggerDown())	
+		if (ViveInput.GetPressDown (HandRole.RightHand, ControllerButton.Trigger) || ViveInput.GetPressDown (HandRole.LeftHand, ControllerButton.Trigger)) {
 		{ // caso botão inferior solto
+			print ("PRESSDOWN");
+
 			if (cardInHand)
 			{
+				print ("saaaiuuu");
+
 				ReleaseObject();
 			}
 		}
 	}
+}
+
 }

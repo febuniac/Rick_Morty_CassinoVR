@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 114019996027821018}
   m_Layer: 0
   m_Name: KingofSpades
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

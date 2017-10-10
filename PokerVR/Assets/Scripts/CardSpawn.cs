@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HTC.UnityPlugin.Vive;
+
 
 
 public class CardSpawn : MonoBehaviour {
@@ -10,10 +12,7 @@ public class CardSpawn : MonoBehaviour {
 	public Text money;
 	public GameObject[] spawned;
 	public Transform[] spawnPos;
-	public SteamVR_Controller.Device Controller;
-	public GameObject controller;
 	private int playerMoney = 100;
-	private SteamVR_TrackedObject trackedObj;  // referência para o controle
 
 
     int randomInt;
@@ -25,10 +24,6 @@ public class CardSpawn : MonoBehaviour {
 	bool controllerPressed = false;
 
 
-    private SteamVR_Controller.Device Controller1
-    {  // Properties para o controle
-        get { return SteamVR_Controller.Input((int)trackedObj.index); }
-    }
 
 	void Awake(){
 		spawned = new GameObject[spawnees.Length];
@@ -47,13 +42,14 @@ public class CardSpawn : MonoBehaviour {
 
     void Update()
     {
-		Scri X = this.GetComponent<Valve.VR.InteractionSystem.Hand>();
 
-		Debug.Log (X.GetStandardInteractionButtonDown());
+
+		//Script X = this.GetComponent<Valve.VR.InteractionSystem.Hand>();
+
+		//Debug.Log (X.GetStandardInteractionButtonDown());
 	
-		/*
-		if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
-			print ("PRESSDOWN");
+
+		if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Pad)) {
 			controllerPressed = true;
 			for (int i = 0; i < spawned.Length; i++) {
 				if (spawned [i]) {
@@ -64,8 +60,8 @@ public class CardSpawn : MonoBehaviour {
 
 
 		}
-*/
-}
+
+	}
 
 
     void SpawnCards()
