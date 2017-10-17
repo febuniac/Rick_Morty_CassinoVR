@@ -173,6 +173,7 @@
      <Compile Include="Assets\Scripts\CardHolder.cs" />
      <Compile Include="Assets\Scripts\CardSpawn.cs" />
      <Compile Include="Assets\Scripts\CardValue.cs" />
+     <Compile Include="Assets\Scripts\ChipBet.cs" />
      <Compile Include="Assets\Scripts\ControllerGrabObject.cs" />
      <Compile Include="Assets\Scripts\LaserPointer.cs" />
      <Compile Include="Assets\Scripts\ViveControllerDebug.cs" />

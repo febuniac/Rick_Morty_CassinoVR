@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HTC.UnityPlugin.Vive;
 
 public class ControllerGrabObject : MonoBehaviour
 {
@@ -93,7 +94,7 @@ public class ControllerGrabObject : MonoBehaviour
 
     void Update()
     {
-        if (Controller.GetHairTriggerDown())
+		if (ViveInput.GetPressDown (HandRole.RightHand, ControllerButton.Pad))
         { // caso botão inferior pressionado
             if (collidingObject)
             {
@@ -101,7 +102,7 @@ public class ControllerGrabObject : MonoBehaviour
             }
         }
 
-        if (Controller.GetHairTriggerUp())
+		if (ViveInput.GetPressDown (HandRole.RightHand, ControllerButton.Pad))
         { // caso botão inferior solto
             if (objectInHand)
             {
