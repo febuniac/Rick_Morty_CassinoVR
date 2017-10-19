@@ -1,11 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CardHolder.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BetArea.cs">
     <Files>
-      <File FileName="Assets\Scripts\LaserPointer.cs" Line="28" Column="2" />
-      <File FileName="Assets\Scripts\CardHolder.cs" Line="53" Column="30" />
-      <File FileName="Assets\Scripts\CardSpawn.cs" Line="53" Column="1" NotebookId="1" />
-      <File FileName="Assets\Scripts\ControllerGrabObject.cs" Line="54" Column="14" NotebookId="1" />
+      <File FileName="Assets\Scripts\BetArea.cs" Line="25" Column="24" />
+      <File FileName="Assets\Scripts\CardSpawn.cs" Line="101" Column="25" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
