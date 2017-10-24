@@ -14,6 +14,7 @@ public class CardSpawn : MonoBehaviour {
 	public GameObject[] spawned;//ja nasceu
 	public Transform[] spawnPos;
 	private int playerMoney = 100;
+	public GameObject betArea;
 
 
     int randomInt;
@@ -58,6 +59,8 @@ public class CardSpawn : MonoBehaviour {
 				state += 1;
 			} else {
 				state = 0;
+				betArea.SendMessage ("OnGameEnd");
+
 			}
 
 			if (state == 0) {
@@ -87,7 +90,10 @@ public class CardSpawn : MonoBehaviour {
 			} else if (state == 4) {
 				rotationVector.x = -90;
 				cardDealer [0].transform.rotation = Quaternion.Euler (rotationVector);	
-				cardDealer [1].transform.rotation = Quaternion.Euler (rotationVector);		
+				cardDealer [1].transform.rotation = Quaternion.Euler (rotationVector);
+
+
+
 			}
 
 		}

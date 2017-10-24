@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Undefined
   - Card
+  - ChipRed
+  - ChipBlack
+  - ChipGreen
+  - ChipBlue
+  - ChipTable
   layers:
   - Default
   - TransparentFX
