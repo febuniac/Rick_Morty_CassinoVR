@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using HTC.UnityPlugin.Vive;
+using System;
 
 
 
@@ -25,6 +26,8 @@ public class CardSpawn : MonoBehaviour {
 	GameObject[] cardTable;
 	int state = 0;
 	bool controllerPressed = false;
+
+
 
 
 
@@ -98,6 +101,34 @@ public class CardSpawn : MonoBehaviour {
 
 		}
 
+	}
+
+	void HandEvaluator (GameObject[] cards){
+		int[] cardsValue = new int[cards.Length];
+		int i = 0;
+		foreach (GameObject card in cards) {
+			cardsValue [i] = card.GetComponent<CardValue>().cardValue;
+			i++;
+		}
+		Array.Sort (cardsValue);
+		if (cardsValue [4] == cardsValue [0] + 4) {
+			foreach (int value in cardsValue) {
+				if (
+	}
+
+	char ConvertCardValue(int cardValue){
+		char newValue;
+		if (cardValue < 10) {
+			newValue = (char)cardValue + 1;
+		} else if (cardValue == 10) {
+			newValue = 'j';
+		} else if (cardValue == 11) {
+			newValue = 'q';
+		} else if (cardValue == 12) {
+			newValue = 'k';
+		} else if (cardValue == 13) {
+			newValue = 'a'
+		}
 	}
 
 
