@@ -214,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 1608947311183148}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.24830993, y: 1.3040031, z: -0.66622865}
-  m_LocalScale: {x: 0.1, y: 0.10000006, z: 0.10000006}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
   m_Children:
   - {fileID: 4541177419353166}
   - {fileID: 4029025313296868}
@@ -602,7 +602,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 2, z: 0}
+  m_Size: {x: 1.6, y: 2, z: 0.08}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114093171244919742
 MonoBehaviour:
@@ -616,6 +616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardValue: 11
+  naipe: 
 --- !u!114 &114135643139905688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -639,6 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardValue: 1
+  naipe: 
 --- !u!114 &114752901910089304
 MonoBehaviour:
   m_ObjectHideFlags: 1

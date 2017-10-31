@@ -171,6 +171,7 @@
      <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleEvent.cs" />
      <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleManager.cs" />
      <Compile Include="Assets\Scripts\BetArea.cs" />
+     <Compile Include="Assets\Scripts\BlackjackSpawn.cs" />
      <Compile Include="Assets\Scripts\CardHolder.cs" />
      <Compile Include="Assets\Scripts\CardSpawn.cs" />
      <Compile Include="Assets\Scripts\CardValue.cs" />

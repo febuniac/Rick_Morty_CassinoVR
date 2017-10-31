@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using HTC.UnityPlugin.Vive;
-using System;
 
 
 
-public class CardSpawn : MonoBehaviour {
+public class Cardspawns : MonoBehaviour {
     public GameObject[] spawnees;//pode
 	public Text winPhrase;
 	public Transform[] tableSpawnPos;
@@ -103,23 +102,12 @@ public class CardSpawn : MonoBehaviour {
 
 	}
 
-	void HandEvaluator (GameObject[] cards){
-		int[] cardsValue = new int[cards.Length];
-		int i = 0;
-		foreach (GameObject card in cards) {
-			cardsValue [i] = card.GetComponent<CardValue>().cardValue;
-			i++;
-		}
-		Array.Sort (cardsValue);
-		if (cardsValue [4] == cardsValue [0] + 4) {
-			foreach (int value in cardsValue) {
-				if (
-	}
 
-	char ConvertCardValue(int cardValue){
+	void ConvertCardValue(int cardValue){
 		char newValue;
 		if (cardValue < 10) {
-			newValue = (char)cardValue + 1;
+			//newValue = (char)cardValue + 1;
+			newValue = 'a';
 		} else if (cardValue == 10) {
 			newValue = 'j';
 		} else if (cardValue == 11) {
@@ -127,7 +115,7 @@ public class CardSpawn : MonoBehaviour {
 		} else if (cardValue == 12) {
 			newValue = 'k';
 		} else if (cardValue == 13) {
-			newValue = 'a'
+			newValue = 'a';
 		}
 	}
 
