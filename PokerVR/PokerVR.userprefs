@@ -1,10 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BetArea.cs">
     <Files>
-      <File FileName="Assets\Scripts\BlackjackSpawn.cs" Line="58" Column="3" />
-      <File FileName="Assets\Scripts\LaserPointer.cs" Line="1" Column="1" />
-      <File FileName="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BlackjackSpawn.cs" Line="46" Column="33" />
+      <File FileName="Assets\Scripts\BetArea.cs" Line="100" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

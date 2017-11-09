@@ -89,6 +89,16 @@ public class BetArea : MonoBehaviour {
 		}
 	}
 
+	void OnWin() {
+		playerMoney += betValue;
+		moneyText.text = "Your Money: $" + playerMoney;
+		betText.text = "Your Bet: \n  $" + 0;
+	}
+
+	void OnLose() {
+		betText.text = "Your Bet: \n  $" + 0;
+	}
+		
 	private void spawnChip(int chip){
 		if (chip == 3){
 			betValue = 10;
