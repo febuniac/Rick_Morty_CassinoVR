@@ -36,8 +36,14 @@ public class BlackjackSpawn : MonoBehaviour {
 	public Button hitButton;
 	public Button standButton;
 	public Button surrenderButton;
+	public Button splitButton;
+	public Button betButton;
+	public Button againButton;
 
+	public GameObject hitCanvas;
+	public GameObject betCanvas;
 
+	public GameObject BetArea;
 
 
 	void Awake(){
@@ -53,14 +59,10 @@ public class BlackjackSpawn : MonoBehaviour {
 
 	void Start()
 	{  
-		SpawnCards();
-		hitButton.onClick.AddListener (OnHit);
+		winPhrase.text = "Place your bet!";
 	}
 
-	void onStand() {
-		hitButton.interactable = false;
-		standButton.interactable = false;
-		surrenderButton.interactable = false;
+	void OnStand() {
 
 		var rotationVector = spawnees [0].transform.rotation.eulerAngles;
 		rotationVector.x = -90;
@@ -77,31 +79,42 @@ public class BlackjackSpawn : MonoBehaviour {
 			cardDealer [dp] = Instantiate (spawnees [randomInt], dpos, Quaternion.Euler (rotationVector)) as GameObject;
 			spawned [sp] = cardDealer [dp];
 			dealerCount += convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue);
+			print ("Carta Dealer: " + convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue));
+			print ("Dealer Count: " + dealerCount);
 
 			dp += 1;
 			sp += 1;
 			cd += 1;
-
 		}
 		SendMessage ("OnSettle");
 		print ("saiu do while");
+		print (dealerCount);
+		OnSettle ();
 
-		if (dealerCount < 21 & dealerCount > playerCount) {
-			winPhrase.text = "You Lose!";
-		} else {
-			winPhrase.text = "You Win!";
-		}
+		againButton.gameObject.SetActive (true);
+		hitButton.gameObject.SetActive (false);
+		standButton.gameObject.SetActive (false);
+		surrenderButton.gameObject.SetActive (false);
+		splitButton.gameObject.SetActive (false);
 
 	}
+
+	void OnAgain() {
+		againButton.gameObject.SetActive (false);
+		betButton.gameObject.SetActive (true);
+		Restart ();
+	}
+
 
 	void OnSettle() {
 		print ("saiu do while");
 
-		if (dealerCount < 21 & dealerCount > playerCount) {
-			SendMessage ("OnWin");
+		if (dealerCount <= 21 & dealerCount > playerCount) {
+			//SendMessage ("OnWin");
+			BetArea.GetComponent<BetArea>().SendMessage("OnLose");
 			winPhrase.text = "You Lose!";
 		} else {
-			SendMessage ("OnLose");
+			BetArea.GetComponent<BetArea>().SendMessage("OnWin");
 			winPhrase.text = "You Win!";
 		}
 	}
@@ -118,12 +131,46 @@ public class BlackjackSpawn : MonoBehaviour {
 		playerCount += convertBJ(cardPlayer [cp].GetComponent<CardValue> ().cardValue);
 		if (playerCount > 21) {
 			winPhrase.text = "You Lose!";
+
+			BetArea.GetComponent<BetArea>().SendMessage("OnLose");
+
+			againButton.gameObject.SetActive (true);
+			hitButton.gameObject.SetActive (false);
+			standButton.gameObject.SetActive (false);
+			surrenderButton.gameObject.SetActive (false);
+			splitButton.gameObject.SetActive (false);
 		}
 		cp += 1;
 		pp += 1;
 		sp += 1;
 	}
 
+	void OnBet() {
+		winPhrase.text = "";
+		betButton.gameObject.SetActive (false);
+		hitButton.gameObject.SetActive (true);
+		standButton.gameObject.SetActive (true);
+		surrenderButton.gameObject.SetActive (true);
+		splitButton.gameObject.SetActive (true);
+		SpawnCards ();
+	}
+
+	void Restart() {
+		print ("restart");
+		foreach (GameObject card in cardDealer) {
+			Destroy (card);
+		}
+		foreach (GameObject card in cardPlayer) {
+			Destroy (card);
+		}
+		foreach (GameObject card in cardTable) {
+			Destroy (card);
+		}
+		dealerCount = 0;
+		playerCount = 0;
+		sp = 0;
+		winPhrase.text = "";
+	}
 
 
 	void SpawnCards()
@@ -151,6 +198,8 @@ public class BlackjackSpawn : MonoBehaviour {
 
 		playerCount += convertBJ(cardPlayer [0].GetComponent<CardValue> ().cardValue);
 		playerCount += convertBJ(cardPlayer [1].GetComponent<CardValue> ().cardValue);
+		dealerCount += convertBJ (cardDealer [0].GetComponent<CardValue> ().cardValue);
+		dealerCount += convertBJ (cardDealer [1].GetComponent<CardValue> ().cardValue);
 
 		print ("Player Count:" + playerCount);
 
@@ -163,7 +212,7 @@ public class BlackjackSpawn : MonoBehaviour {
 
 	int convertBJ (int cardValue) {
 		int bjValue;
-		if (cardValue > 10) {
+		if (cardValue >= 10) {
 			bjValue = 10;
 		} else {
 			bjValue = cardValue + 1;
