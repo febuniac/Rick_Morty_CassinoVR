@@ -43,8 +43,11 @@ public class BlackjackSpawn : MonoBehaviour {
 	public GameObject hitCanvas;
 	public GameObject betCanvas;
 
-	public GameObject BetArea;
+	public GameObject[] testCards;
 
+	public GameObject BetArea;
+	public int acesDealer;
+	public int acesPlayer;
 
 	void Awake(){
 		spawned = new GameObject[spawnees.Length];
@@ -53,13 +56,28 @@ public class BlackjackSpawn : MonoBehaviour {
 		cardTable = new GameObject[5];
 		playerCount = 0;
 		dealerCount = 0;
-
+		acesDealer = 0;
+		acesPlayer = 0;
+//		if (testCards != null) {
+//			spawnees = testCards;
+//		}
 
 	}
 
 	void Start()
 	{  
 		winPhrase.text = "Place your bet!";
+	}
+
+	void OnSurrender() {
+
+		againButton.gameObject.SetActive (true);
+		hitButton.gameObject.SetActive (false);
+		standButton.gameObject.SetActive (false);
+		surrenderButton.gameObject.SetActive (false);
+		splitButton.gameObject.SetActive (false);
+
+		BetArea.GetComponent<BetArea> ().SendMessage ("OnSurrender");
 	}
 
 	void OnStand() {
@@ -70,15 +88,12 @@ public class BlackjackSpawn : MonoBehaviour {
 		Vector3 dpos = dealerPos [dp].position;
 
 		cardDealer [1].transform.rotation = Quaternion.Euler (rotationVector);
-		print (" cicici");
-		while (dealerCount < 17) {
-			Debug.Log(" dentro do while");
-			
+		while (dealerCount < 17) {			
 
 			randomInt = Random.Range (0, spawnees.Length);
 			cardDealer [dp] = Instantiate (spawnees [randomInt], dpos, Quaternion.Euler (rotationVector)) as GameObject;
 			spawned [sp] = cardDealer [dp];
-			dealerCount += convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue);
+			calcDealerCount(convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue));
 			print ("Carta Dealer: " + convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue));
 			print ("Dealer Count: " + dealerCount);
 
@@ -87,8 +102,6 @@ public class BlackjackSpawn : MonoBehaviour {
 			cd += 1;
 		}
 		SendMessage ("OnSettle");
-		print ("saiu do while");
-		print (dealerCount);
 		OnSettle ();
 
 		againButton.gameObject.SetActive (true);
@@ -106,13 +119,15 @@ public class BlackjackSpawn : MonoBehaviour {
 	}
 
 
-	void OnSettle() {
-		print ("saiu do while");
 
+	void OnSettle() {
 		if (dealerCount <= 21 & dealerCount > playerCount) {
 			//SendMessage ("OnWin");
-			BetArea.GetComponent<BetArea>().SendMessage("OnLose");
+			BetArea.GetComponent<BetArea> ().SendMessage ("OnLose");
 			winPhrase.text = "You Lose!";
+		} else if (dealerCount <= 21 & dealerCount == playerCount) {
+			BetArea.GetComponent<BetArea> ().SendMessage ("OnTie");
+			winPhrase.text = "Tie!";
 		} else {
 			BetArea.GetComponent<BetArea>().SendMessage("OnWin");
 			winPhrase.text = "You Win!";
@@ -128,7 +143,7 @@ public class BlackjackSpawn : MonoBehaviour {
 		randomInt = Random.Range (0, spawnees.Length);
 		cardPlayer [cp] = Instantiate (spawnees [randomInt], pos, Quaternion.Euler (rotationVector)) as GameObject;
 		spawned [sp] = cardPlayer [cp];
-		playerCount += convertBJ(cardPlayer [cp].GetComponent<CardValue> ().cardValue);
+		calcPlayerCount(convertBJ(cardPlayer [cp].GetComponent<CardValue> ().cardValue));
 		if (playerCount > 21) {
 			winPhrase.text = "You Lose!";
 
@@ -156,7 +171,6 @@ public class BlackjackSpawn : MonoBehaviour {
 	}
 
 	void Restart() {
-		print ("restart");
 		foreach (GameObject card in cardDealer) {
 			Destroy (card);
 		}
@@ -196,12 +210,10 @@ public class BlackjackSpawn : MonoBehaviour {
 		cardPlayer[1] = Instantiate(spawnees[randomInt], playerPos[1].position, Quaternion.Euler (rotationVector)) as GameObject;
 		spawned [3] = cardPlayer [1];
 
-		playerCount += convertBJ(cardPlayer [0].GetComponent<CardValue> ().cardValue);
-		playerCount += convertBJ(cardPlayer [1].GetComponent<CardValue> ().cardValue);
-		dealerCount += convertBJ (cardDealer [0].GetComponent<CardValue> ().cardValue);
-		dealerCount += convertBJ (cardDealer [1].GetComponent<CardValue> ().cardValue);
-
-		print ("Player Count:" + playerCount);
+		calcPlayerCount(convertBJ(cardPlayer [0].GetComponent<CardValue> ().cardValue));
+		calcPlayerCount(convertBJ(cardPlayer [1].GetComponent<CardValue> ().cardValue));
+		calcDealerCount(convertBJ(cardDealer [0].GetComponent<CardValue> ().cardValue));
+		calcDealerCount(convertBJ(cardDealer [1].GetComponent<CardValue> ().cardValue));
 
 		cp = 2;
 		pp = 2;
@@ -209,10 +221,45 @@ public class BlackjackSpawn : MonoBehaviour {
 		cd = 2;
 	}
 
+	void calcPlayerCount (int cardValue) {
+		print ("Player Count:" + playerCount);
+
+		if (cardValue == 0) {
+			playerCount += 11;
+			acesPlayer += 1;
+		} else {
+			playerCount += cardValue;
+		}
+
+		if (acesPlayer > 0 & playerCount > 21) {
+			acesPlayer -= 1;
+			playerCount -= 10;
+		} 
+		print ("Player Count After:" + playerCount);
+	}
+
+	void calcDealerCount (int cardValue) {
+		print ("Dealer Count:" + dealerCount);
+
+		if (cardValue == 0) {
+			dealerCount += 11;
+			acesDealer += 1;
+		} else {
+			dealerCount+= cardValue;
+		}
+
+		if (acesDealer > 0 & dealerCount> 21) {
+			acesDealer -= 1;
+			dealerCount -= 10;
+		} 
+		print ("Dealer Count After:" + dealerCount);
+	}
 
 	int convertBJ (int cardValue) {
 		int bjValue;
-		if (cardValue >= 10) {
+		if (cardValue == 13) {
+			bjValue = 0;
+		} else if (cardValue >= 10) {
 			bjValue = 10;
 		} else {
 			bjValue = cardValue + 1;

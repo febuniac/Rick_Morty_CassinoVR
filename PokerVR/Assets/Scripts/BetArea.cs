@@ -5,8 +5,8 @@ using UnityEngine;
 public class BetArea : MonoBehaviour {
 	public GameObject[] chips;
 	public TextMesh betText;
-	private int betValue;
-	private int playerMoney;
+	private float betValue;
+	private float playerMoney;
 	public Transform[] chipsPos;
 	public TextMesh moneyText;
 	private List<GameObject> chipsI = new List<GameObject>();
@@ -110,6 +110,23 @@ public class BetArea : MonoBehaviour {
 		betText.text = "Your Bet: \n  $" + 0;
 		ResetChips ();
 	}
+
+	void OnTie() {
+		playerMoney += betValue;
+		betValue = 0;
+		moneyText.text = "Your Money: $" + playerMoney;
+		betText.text = "Your Bet: \n  $" + 0;
+		ResetChips ();
+	}
+
+	void OnSurrender() {
+		betValue = 0;
+		playerMoney += betValue / 2;
+		moneyText.text = "Your Money: $" + playerMoney;
+		betText.text = "Your Bet: \n  $" + 0;
+		ResetChips ();
+	}
+
 		
 //	private void spawnChip(int chip){
 //		if (chip == 3){

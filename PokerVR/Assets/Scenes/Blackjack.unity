@@ -3347,7 +3347,16 @@ MonoBehaviour:
   againButton: {fileID: 297812152}
   hitCanvas: {fileID: 1741268464349482, guid: a50ee61385c9e0949985814ad2cdf060, type: 2}
   betCanvas: {fileID: 0}
+  testCards:
+  - {fileID: 0}
+  - {fileID: 1551782164413096, guid: 722f101cbfcbc1b479786091ee59d649, type: 2}
+  - {fileID: 1759655799791826, guid: e15631f530c8a9e449312218cf04bddc, type: 2}
+  - {fileID: 1883822343044436, guid: d98a5cd86baceb74187a404f2c0486c9, type: 2}
+  - {fileID: 1340743704090760, guid: 9a81dc6401383e141a4908cdc154e031, type: 2}
+  - {fileID: 1174224035927414, guid: feb772995cf58144aba40315f1efa491, type: 2}
   BetArea: {fileID: 1973643281}
+  acesDealer: 0
+  acesPlayer: 0
 --- !u!1 &1091145740
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,7 +3777,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1659333387
+  randomSeed: 926221402
   InitialModule:
     serializedVersion: 3
     enabled: 1
