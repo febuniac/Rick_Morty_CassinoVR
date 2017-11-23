@@ -3777,7 +3777,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 926221402
+  randomSeed: 1322750011
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8120,6 +8120,41 @@ Prefab:
         type: 2}
       propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SendMessage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114433627602567658, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: m_Text
+      value: Double
+      objectReference: {fileID: 0}
+    - target: {fileID: 114048687271588130, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1059624170}
+    - target: {fileID: 114048687271588130, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendMessage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114048687271588130, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: OnDouble
+      objectReference: {fileID: 0}
+    - target: {fileID: 114638792782091720, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1059624170}
+    - target: {fileID: 114638792782091720, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendMessage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114209516820359788, guid: a50ee61385c9e0949985814ad2cdf060,
+        type: 2}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a50ee61385c9e0949985814ad2cdf060, type: 2}

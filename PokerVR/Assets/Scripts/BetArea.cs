@@ -80,7 +80,9 @@ public class BetArea : MonoBehaviour {
 				moneyText.text = "Your Money: $" + playerMoney;
 				Instantiate (chips[2], chipsPos[2].position, chipsPos[3].rotation);
 			} else {
-				
+				Destroy (col.gameObject);
+				Instantiate (chips[2], chipsPos[2].position, chipsPos[3].rotation);
+
 			}
 		}
 
@@ -120,11 +122,18 @@ public class BetArea : MonoBehaviour {
 	}
 
 	void OnSurrender() {
-		betValue = 0;
 		playerMoney += betValue / 2;
+		betValue = 0;
 		moneyText.text = "Your Money: $" + playerMoney;
 		betText.text = "Your Bet: \n  $" + 0;
 		ResetChips ();
+	}
+
+	void OnDouble() {
+		playerMoney -= betValue;
+		betValue += betValue;
+		betText.text = "Your Bet: \n  $" + betValue;
+		moneyText.text = "Your Money: $" + playerMoney;
 	}
 
 		

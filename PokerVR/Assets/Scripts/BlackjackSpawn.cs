@@ -71,13 +71,13 @@ public class BlackjackSpawn : MonoBehaviour {
 
 	void OnSurrender() {
 
+		BetArea.GetComponent<BetArea> ().SendMessage ("OnSurrender");
+
 		againButton.gameObject.SetActive (true);
 		hitButton.gameObject.SetActive (false);
 		standButton.gameObject.SetActive (false);
 		surrenderButton.gameObject.SetActive (false);
 		splitButton.gameObject.SetActive (false);
-
-		BetArea.GetComponent<BetArea> ().SendMessage ("OnSurrender");
 	}
 
 	void OnStand() {
@@ -118,6 +118,18 @@ public class BlackjackSpawn : MonoBehaviour {
 		Restart ();
 	}
 
+	void OnDouble() {
+		SendMessage("OnHit");
+		BetArea.GetComponent<BetArea> ().SendMessage ("OnDouble");
+		SendMessage ("OnSettle");
+
+		againButton.gameObject.SetActive (true);
+		hitButton.gameObject.SetActive (false);
+		standButton.gameObject.SetActive (false);
+		surrenderButton.gameObject.SetActive (false);
+		splitButton.gameObject.SetActive (false);
+	}
+
 
 
 	void OnSettle() {
@@ -132,6 +144,18 @@ public class BlackjackSpawn : MonoBehaviour {
 			BetArea.GetComponent<BetArea>().SendMessage("OnWin");
 			winPhrase.text = "You Win!";
 		}
+
+		if (playerCount > 21) {
+			winPhrase.text = "You Lose!";
+
+			BetArea.GetComponent<BetArea>().SendMessage("OnLose");
+
+			againButton.gameObject.SetActive (true);
+			hitButton.gameObject.SetActive (false);
+			standButton.gameObject.SetActive (false);
+			surrenderButton.gameObject.SetActive (false);
+			splitButton.gameObject.SetActive (false);
+		}
 	}
 
 	void OnHit () {
@@ -139,11 +163,14 @@ public class BlackjackSpawn : MonoBehaviour {
 		var rotationVector = spawnees [0].transform.rotation.eulerAngles;
 		rotationVector.x = -90;
 
+		splitButton.enabled = false;
+
 		Vector3 pos = playerPos [pp].position;
 		randomInt = Random.Range (0, spawnees.Length);
 		cardPlayer [cp] = Instantiate (spawnees [randomInt], pos, Quaternion.Euler (rotationVector)) as GameObject;
 		spawned [sp] = cardPlayer [cp];
 		calcPlayerCount(convertBJ(cardPlayer [cp].GetComponent<CardValue> ().cardValue));
+
 		if (playerCount > 21) {
 			winPhrase.text = "You Lose!";
 
@@ -167,6 +194,8 @@ public class BlackjackSpawn : MonoBehaviour {
 		standButton.gameObject.SetActive (true);
 		surrenderButton.gameObject.SetActive (true);
 		splitButton.gameObject.SetActive (true);
+		splitButton.enabled = true;
+
 		SpawnCards ();
 	}
 
