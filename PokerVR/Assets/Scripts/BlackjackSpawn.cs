@@ -58,9 +58,9 @@ public class BlackjackSpawn : MonoBehaviour {
 		dealerCount = 0;
 		acesDealer = 0;
 		acesPlayer = 0;
-//		if (testCards != null) {
-//			spawnees = testCards;
-//		}
+		//		if (testCards != null) {
+		//			spawnees = testCards;
+		//		}
 
 	}
 
@@ -113,16 +113,36 @@ public class BlackjackSpawn : MonoBehaviour {
 	}
 
 	void OnAgain() {
+		winPhrase.text = "Place your bet!";
+
 		againButton.gameObject.SetActive (false);
 		betButton.gameObject.SetActive (true);
 		Restart ();
 	}
 
 	void OnDouble() {
+		var rotationVector = spawnees [0].transform.rotation.eulerAngles;
+		rotationVector.x = -90;
+
+		Vector3 dpos = dealerPos [dp].position;
 		SendMessage("OnHit");
 		BetArea.GetComponent<BetArea> ().SendMessage ("OnDouble");
-		SendMessage ("OnSettle");
+		cardDealer [1].transform.rotation = Quaternion.Euler (rotationVector);
+		while (dealerCount < 17) {			
 
+			randomInt = Random.Range (0, spawnees.Length);
+			cardDealer [dp] = Instantiate (spawnees [randomInt], dpos, Quaternion.Euler (rotationVector)) as GameObject;
+			spawned [sp] = cardDealer [dp];
+			calcDealerCount(convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue));
+			print ("Carta Dealer: " + convertBJ (cardDealer [cd].GetComponent<CardValue> ().cardValue));
+			print ("Dealer Count: " + dealerCount);
+
+			dp += 1;
+			sp += 1;
+			cd += 1;
+		}
+		SendMessage ("OnSettle");
+		OnSettle();
 		againButton.gameObject.SetActive (true);
 		hitButton.gameObject.SetActive (false);
 		standButton.gameObject.SetActive (false);
@@ -132,7 +152,11 @@ public class BlackjackSpawn : MonoBehaviour {
 
 
 
-	void OnSettle() {
+	void OnSettle() {		
+		var rotationVector = spawnees [0].transform.rotation.eulerAngles;
+		rotationVector.x = -90;
+		cardDealer [1].transform.rotation = Quaternion.Euler (rotationVector);
+
 		if (dealerCount <= 21 & dealerCount > playerCount) {
 			//SendMessage ("OnWin");
 			BetArea.GetComponent<BetArea> ().SendMessage ("OnLose");
@@ -174,6 +198,9 @@ public class BlackjackSpawn : MonoBehaviour {
 		if (playerCount > 21) {
 			winPhrase.text = "You Lose!";
 
+
+			cardDealer [1].transform.rotation = Quaternion.Euler (rotationVector);
+
 			BetArea.GetComponent<BetArea>().SendMessage("OnLose");
 
 			againButton.gameObject.SetActive (true);
@@ -195,9 +222,8 @@ public class BlackjackSpawn : MonoBehaviour {
 		surrenderButton.gameObject.SetActive (true);
 		splitButton.gameObject.SetActive (true);
 		splitButton.enabled = true;
-        BetArea.GetComponent<BetArea>().SendMessage("OnBet");
 
-        SpawnCards();
+		SpawnCards ();
 	}
 
 	void Restart() {

@@ -10,6 +10,7 @@ public class BetArea : MonoBehaviour {
 	public Transform[] chipsPos;
 	public TextMesh moneyText;
 	private List<GameObject> chipsI = new List<GameObject>();
+	private bool bet;
 
 	// Use this for initialization
 	void Start () {
