@@ -195,8 +195,9 @@ public class BlackjackSpawn : MonoBehaviour {
 		surrenderButton.gameObject.SetActive (true);
 		splitButton.gameObject.SetActive (true);
 		splitButton.enabled = true;
+        BetArea.GetComponent<BetArea>().SendMessage("OnBet");
 
-		SpawnCards ();
+        SpawnCards();
 	}
 
 	void Restart() {

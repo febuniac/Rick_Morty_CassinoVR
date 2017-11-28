@@ -14,7 +14,7 @@ public class BetArea : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		betValue = 0;
-		playerMoney = 500;
+		playerMoney = 1000;
 		moneyText.text = "Your Money: $" + playerMoney;
 	}
 	
@@ -59,7 +59,13 @@ public class BetArea : MonoBehaviour {
 				betText.text = "Your Bet: \n  $" + betValue;
 				moneyText.text = "Your Money: $" + playerMoney;
 				Instantiate (chips[3], chipsPos[3].position, chipsPos[3].rotation);
-			}
+			} else
+            {
+                Destroy(col.gameObject);
+                betValue -= 10;
+                playerMoney += 10;
+                Instantiate(chips[3], chipsPos[3].position, chipsPos[3].rotation);
+            }
 		}
 
 		else if (col.tag == "ChipGreen") {
@@ -70,7 +76,14 @@ public class BetArea : MonoBehaviour {
 				moneyText.text = "Your Money: $" + playerMoney;
 				Instantiate (chips[1], chipsPos[1].position, chipsPos[1].rotation);
 			}
-		}
+            else
+            {
+                Destroy(col.gameObject);
+                betValue -= 25;
+                playerMoney += 25;
+                Instantiate(chips[1], chipsPos[1].position, chipsPos[1].rotation);
+            }
+        }
 
 		if (col.tag == "ChipBlue") {
 			betValue += 500;
@@ -81,9 +94,12 @@ public class BetArea : MonoBehaviour {
 				Instantiate (chips[2], chipsPos[2].position, chipsPos[3].rotation);
 			} else {
 				Destroy (col.gameObject);
+				Destroy (col.gameObject);
 				Instantiate (chips[2], chipsPos[2].position, chipsPos[3].rotation);
+                betValue -= 500;
+                playerMoney += 500;
 
-			}
+            }
 		}
 
 		if (col.tag == "ChipBlack") {
@@ -95,7 +111,14 @@ public class BetArea : MonoBehaviour {
 				moneyText.text = "Your Money: $" + playerMoney;
 				Instantiate (chips[0], chipsPos[0].position, chipsPos[0].rotation);
 			}
-		}
+            else
+            {
+                Destroy(col.gameObject);
+                betValue -= 100;
+                playerMoney += 100;
+                Instantiate(chips[0], chipsPos[0].position, chipsPos[0].rotation);
+            }
+        }
 		chipsI.Add (col.gameObject);
 	}
 
@@ -136,6 +159,10 @@ public class BetArea : MonoBehaviour {
 		moneyText.text = "Your Money: $" + playerMoney;
 	}
 
+    void OnBet()
+    {
+        bet = false;
+    }
 		
 //	private void spawnChip(int chip){
 //		if (chip == 3){
