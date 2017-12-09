@@ -70,7 +70,7 @@ public class BlackjackSpawn : MonoBehaviour {
 	}
 
 	void OnSurrender() {
-
+		winPhrase.text = "Surrendered";
 		BetArea.GetComponent<BetArea> ().SendMessage ("OnSurrender");
 
 		againButton.gameObject.SetActive (true);
@@ -239,7 +239,7 @@ public class BlackjackSpawn : MonoBehaviour {
 		dealerCount = 0;
 		playerCount = 0;
 		sp = 0;
-		winPhrase.text = "";
+		winPhrase.text = "Place your bet!";
 	}
 
 
